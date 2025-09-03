@@ -1,7 +1,8 @@
-// src/components/organisms/Navbar/index.jsx
 import React, { useState } from "react";
 import { Link, NavLink as RouterNavLink } from "react-router-dom";
 import { FiMenu, FiX, FiSearch, FiUser, FiShoppingCart } from "react-icons/fi";
+import Logo from "../logo";
+import { NAV_ITEMS } from "../../../data/site";
 
 function Bar({ bg, children, onClose }) {
   return (
@@ -25,10 +26,10 @@ const NavItem = ({ to, children }) => (
     to={to}
     className={({ isActive }) =>
       [
-        "px-3 py-2 text-[15px] transition relative",
+        "group px-3 py-2 text-[15px] transition relative",
         isActive
-          ? "text-neutral-900 font-semibold after:absolute after:left-2 after:right-2 after:-bottom-1 after:h-[2px] after:bg-purple-600"
-          : "text-neutral-700 hover:text-neutral-900",
+          ? "text-neutral-900 font-semibold after:absolute after:left-2 after:right-2 after:-bottom-1 after:h-[2px] after:rounded after:bg-purple-600"
+          : "text-neutral-700 hover:text-neutral-900 after:absolute after:left-2 after:right-2 after:-bottom-1 after:h-[2px] after:rounded after:bg-neutral-300 after:origin-left after:scale-x-0 after:transition-transform group-hover:after:scale-x-100",
       ].join(" ")
     }
   >
@@ -43,7 +44,6 @@ export default function Navbar() {
 
   return (
     <header className="sticky top-0 z-50 bg-white/90 backdrop-blur border-b border-neutral-200 shadow-sm">
-      {/* top slim bars */}
       {showWarn && (
         <Bar bg="bg-white" onClose={() => setShowWarn(false)}>
           <strong>WARNING:</strong>&nbsp;This product contains NICOTINE.
@@ -58,31 +58,26 @@ export default function Navbar() {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         {/* Desktop / tablet */}
-        <div className="h-16 hidden md:grid grid-cols-3 items-center">
-          {/* left links */}
-          <nav className="flex items-center gap-2">
-            <NavItem to="/shop">Shop all</NavItem>
-            <NavItem to="/new">New arrivals</NavItem>
-            <NavItem to="/accessories">Accessories</NavItem>
-            <NavItem to="/hot-sale">Hot Sale</NavItem>
+        <div className="h-20 hidden md:grid grid-cols-3 items-center">
+          {/* left links (mapped) */}
+          <nav className="flex items-center gap-2" role="navigation" aria-label="Primary">
+            {NAV_ITEMS.map(({ label, to }) => (
+              <NavItem key={to} to={to}>
+                {label}
+              </NavItem>
+            ))}
           </nav>
 
-          {/* centered logo */}
+          {/* centered BIG logo — no hover/active animation */}
           <div className="flex items-center justify-center">
-            <Link to="/" className="inline-flex items-center select-none">
-              <img
-                src="/logo.png"
-                alt="EPIC"
-                className="h-12 w-auto object-contain"
-              />
-            </Link>
+            <Logo href="/" imgSrc="/logo.png" size="xl" alt="EPIC" />
           </div>
 
           {/* right controls */}
           <div className="flex items-center justify-end gap-2">
             <Link
               to="/search"
-              className="hidden lg:flex items-center gap-2 w-[22rem] px-4 py-2 rounded-full border bg-white focus-within:ring-2 focus-within:ring-purple-500/30"
+              className="hidden lg:flex items-center gap-2 w-[22rem] px-4 py-2 rounded-full border bg-white transition hover:border-neutral-300 hover:shadow-sm focus-within:ring-2 focus-within:ring-purple-500/30"
             >
               <FiSearch />
               <input
@@ -92,20 +87,11 @@ export default function Navbar() {
               />
             </Link>
 
-            <Link
-              aria-label="Account"
-              to="/account"
-              className="p-2 rounded-lg hover:bg-neutral-100"
-            >
+            <Link aria-label="Account" to="/account" className="p-2 rounded-lg hover:bg-neutral-100 transition">
               <FiUser className="h-5 w-5" />
             </Link>
 
-            {/* ✅ Cart icon without badge */}
-            <Link
-              aria-label="Cart"
-              to="/cart"
-              className="p-2 rounded-lg hover:bg-neutral-100"
-            >
+            <Link aria-label="Cart" to="/cart" className="p-2 rounded-lg hover:bg-neutral-100 transition">
               <FiShoppingCart className="h-5 w-5" />
             </Link>
           </div>
@@ -115,31 +101,25 @@ export default function Navbar() {
         <div className="h-16 flex md:hidden items-center justify-between gap-3">
           <button
             aria-label="Open menu"
-            className="p-2 rounded-lg hover:bg-neutral-100"
+            className="p-2 rounded-lg hover:bg-neutral-100 transition"
             onClick={() => setOpen(true)}
           >
             <FiMenu className="h-5 w-5" />
           </button>
 
-          <Link to="/" className="inline-flex items-center gap-2 select-none">
-            <img src="/logo.png" alt="EPIC" className="h-10 w-auto object-contain" />
-          </Link>
+          {/* mobile logo — no hover/active animation */}
+          <Logo href="/" imgSrc="/logo.png" size={48} alt="EPIC" />
 
-          {/* ✅ Mobile Cart icon without badge */}
-          <Link
-            aria-label="Cart"
-            to="/cart"
-            className="p-2 rounded-lg hover:bg-neutral-100"
-          >
+          <Link aria-label="Cart" to="/cart" className="p-2 rounded-lg hover:bg-neutral-100 transition">
             <FiShoppingCart className="h-5 w-5" />
           </Link>
         </div>
 
-        {/* mobile search under bar */}
+        {/* mobile search */}
         <div className="md:hidden pb-3">
           <Link
             to="/search"
-            className="flex items-center gap-2 px-3 py-2 border rounded-full bg-white"
+            className="flex items-center gap-2 px-3 py-2 border rounded-full bg-white transition hover:border-neutral-300 hover:shadow-sm"
           >
             <FiSearch className="shrink-0" />
             <input
@@ -154,28 +134,30 @@ export default function Navbar() {
       {/* Mobile drawer */}
       {open && (
         <div className="fixed inset-0 z-[60]">
-          <div
-            className="absolute inset-0 bg-black/40"
-            onClick={() => setOpen(false)}
-            aria-hidden
-          />
+          <div className="absolute inset-0 bg-black/40" onClick={() => setOpen(false)} aria-hidden />
           <div className="absolute left-0 top-0 h-full w-[84%] max-w-xs bg-white shadow-xl p-4 flex flex-col">
             <div className="flex items-center justify-between mb-3">
               <span className="font-black text-lg">Menu</span>
               <button
                 aria-label="Close menu"
-                className="p-2 rounded-lg hover:bg-neutral-100"
+                className="p-2 rounded-lg hover:bg-neutral-100 transition"
                 onClick={() => setOpen(false)}
               >
                 <FiX className="h-5 w-5" />
               </button>
             </div>
 
-            <nav className="grid gap-1 text-[15px]">
-              <RouterNavLink to="/shop" onClick={() => setOpen(false)} className="px-3 py-2 rounded-lg hover:bg-neutral-100">Shop all</RouterNavLink>
-              <RouterNavLink to="/new" onClick={() => setOpen(false)} className="px-3 py-2 rounded-lg hover:bg-neutral-100">New arrivals</RouterNavLink>
-              <RouterNavLink to="/accessories" onClick={() => setOpen(false)} className="px-3 py-2 rounded-lg hover:bg-neutral-100">Accessories</RouterNavLink>
-              <RouterNavLink to="/hot-sale" onClick={() => setOpen(false)} className="px-3 py-2 rounded-lg hover:bg-neutral-100">Hot Sale</RouterNavLink>
+            <nav className="grid gap-1 text-[15px]" role="navigation" aria-label="Mobile">
+              {NAV_ITEMS.map(({ label, to }) => (
+                <RouterNavLink
+                  key={to}
+                  to={to}
+                  onClick={() => setOpen(false)}
+                  className="px-3 py-2 rounded-lg hover:bg-neutral-100 transition"
+                >
+                  {label}
+                </RouterNavLink>
+              ))}
             </nav>
           </div>
         </div>
