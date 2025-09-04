@@ -37,8 +37,10 @@ const FooterList = ({ title, items }) => (
 
 export default function Footer() {
   return (
-    <footer className="bg-neutral-100 border-t border-neutral-200">
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 pt-16 pb-12">
+    // keep footer behind the overlapped card visually
+    <footer className="bg-neutral-100 border-t border-neutral-200 relative z-0">
+      {/* match footer top padding with newsletter -mb-32 */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 pt-32 pb-12">
         {/* 4 columns: LOGO text + socials | Shop | Company | Get in touch */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-10 md:gap-16 items-start">
           <div>
