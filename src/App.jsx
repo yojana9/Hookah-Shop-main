@@ -1,36 +1,32 @@
-import Navbar from "./components/organisms/Navbar";
-import Footer from "./components/organisms/Footer";
-import Button from "./components/atoms/buttons";
-import Header from "./components/atoms/header";
-import Newsletter from "./components/organisms/Newsletter";
+// src/App.jsx
+import Navbar from "@/components/organisms/Navbar";
+
+import Newsletter from "@/components/organisms/Newsletter";
+import Footer from "@/components/organisms/Footer";
+import ProductCard from "./components/atoms/card";
 
 export default function App() {
   return (
-    <>
+    <div className="min-h-screen bg-gray-50 flex flex-col">
+      {/* Navbar */}
       <Navbar />
 
-      <main className="min-h-[65vh] flex flex-col items-center justify-center gap-6">
-        <Header text="Just Arrived" size="medium" />
-        <Header text="Hookah 1.2" size="small" />
-
-        <Button
-          variant="primary"
-          text="CHECK IT OUT"
-          onClick={() => alert("Primary clicked!")}
-        />
-        <Button
-          variant="secondary"
-          text="I'M UNDER 21"
-          onClick={() => alert("Secondary clicked!")}
-        />
+      {/* Main content */}
+      <main className="flex-1">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-12">
+          <ProductCard />
+        </div>
       </main>
 
-      {/* CTA banner above the footer */}
-      <div className="mt-10">
-        <Newsletter />
-      </div>
+      {/* Newsletter */}
+      <section className="bg-white border-t">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-12">
+          <Newsletter />
+        </div>
+      </section>
 
+      {/* Footer */}
       <Footer />
-    </>
+    </div>
   );
 }

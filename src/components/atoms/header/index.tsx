@@ -1,4 +1,5 @@
-import React, { useMemo } from "react";
+// src/components/atoms/header/index.tsx
+import { useMemo } from "react";
 
 type HeaderProps = {
   text: string;
@@ -6,17 +7,19 @@ type HeaderProps = {
   className?: string;
 };
 
-const Header: React.FC<HeaderProps> = ({ text, size = "medium", className }) => {
-  // ✅ Memoize className so it's only recalculated if `size` or `className` changes
+export default function Header({
+  text,
+  size = "medium",
+  className = "",
+}: HeaderProps) {
+  // Memoize the computed class list
   const classes = useMemo(() => {
     const styles = {
-      medium: "text-4xl font-extrabold tracking-wide uppercase",
+      medium: "text-4xl font-extrabold tracking-wide",
       small: "text-xl font-semibold",
     };
-    return `${styles[size]} ${className || ""}`;
+    return `${styles[size]} ${className}`.trim();
   }, [size, className]);
 
   return <h2 className={classes}>{text}</h2>;
-};
-
-export default Header;
+}
