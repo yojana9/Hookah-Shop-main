@@ -1,31 +1,50 @@
 import React, { useMemo } from "react";
 
 type ButtonProps = {
-  variant: "primary" | "secondary";
+  variant?: "primary" | "secondary" | "deep";
   text: string;
   onClick?: () => void;
+  size?: "sm" | "md" | "lg";
+  className?: string;
+  type?: "button" | "submit" | "reset";
+  showArrow?: boolean;
 };
 
-const Button: React.FC<ButtonProps> = ({ variant, text, onClick }) => {
-  // ✅ Memoize classes so they're only recalculated if `variant` changes
+const Button: React.FC<ButtonProps> = ({
+  variant = "deep",
+  text,
+  onClick,
+  size = "md",
+  className = "",
+  type = "button",
+  showArrow,
+}) => {
   const classes = useMemo(() => {
     const base =
-      "inline-flex items-center justify-center rounded-full px-6 py-3 font-semibold tracking-wide transition-colors";
-
+      "inline-flex items-center justify-center rounded-full font-semibold tracking-wide transition-colors ring-1 ring-black/5 shadow-md";
+    const sizes = {
+      sm: "h-9 px-4 text-xs",
+      md: "h-10 px-5 text-sm",
+      lg: "h-12 px-6 text-base",
+    } as const;
     const styles = {
       primary:
-        "bg-purple-700 text-white hover:bg-purple-800 focus:ring-2 focus:ring-purple-600",
+        "bg-gradient-to-r from-violet-600 to-purple-700 hover:from-violet-700 hover:to-purple-800 text-white",
       secondary:
-        "border border-purple-700 text-purple-700 hover:bg-purple-50 focus:ring-2 focus:ring-purple-600",
-    };
+        "bg-white border border-purple-700 text-purple-700 hover:bg-purple-50",
+      deep:
+        "bg-[#3B007B] hover:bg-[#2A005C] text-white", // exact deep purple
+    } as const;
+    return `${base} ${sizes[size]} ${styles[variant]} ${className}`.trim();
+  }, [variant, size, className]);
 
-    return `${base} ${styles[variant]}`;
-  }, [variant]);
+  const shouldShowArrow =
+    typeof showArrow === "boolean" ? showArrow : variant === "primary";
 
   return (
-    <button onClick={onClick} className={classes}>
-      {text}
-      {variant === "primary" && <span className="ml-2">→</span>}
+    <button type={type} onClick={onClick} className={classes}>
+      <span>{text}</span>
+      {shouldShowArrow && <span className="ml-2 text-base leading-none">→</span>}
     </button>
   );
 };
