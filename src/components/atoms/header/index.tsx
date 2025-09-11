@@ -1,4 +1,4 @@
-// src/components/atoms/header/index.tsx
+
 import { useMemo } from "react";
 
 type HeaderProps = {
@@ -12,7 +12,7 @@ export default function Header({
   size = "medium",
   className = "",
 }: HeaderProps) {
-  // Memoize the computed class list
+  
   const classes = useMemo(() => {
     const styles = {
       medium: "text-4xl font-extrabold tracking-wide",

@@ -5,8 +5,8 @@ type LogoProps = {
   href?: string;
   imgSrc?: string;
   alt?: string;
-  showWord?: boolean;           // wordmark toggle (default off)
-  size?: Preset | number;       // preset or exact px
+  showWord?: boolean;           
+  size?: Preset | number;       
   className?: string;
 };
 

@@ -1,11 +1,11 @@
-// src/components/NewsletterBanner.jsx
+
 import React from "react";
 
 export default function NewsletterBanner() {
   return (
     <section className="max-w-6xl mx-auto px-4 sm:px-6 -mb-20 relative z-10">
       <div className="relative rounded-2xl overflow-hidden bg-black shadow-2xl">
-        {/* Image */}
+   
         <div className="flex justify-center">
           <img
             src="/hookah.png"
@@ -15,19 +15,16 @@ export default function NewsletterBanner() {
           />
         </div>
 
-        {/* Bottom black fade */}
         <div className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black via-black/80 to-transparent" />
 
-        {/* Content */}
         <div className="absolute inset-x-0 bottom-0 p-6 sm:p-8">
           <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
-            {/* Heading text */}
+    
             <h2 className="text-white font-extrabold uppercase leading-tight tracking-tight text-2xl sm:text-3xl max-w-lg">
               Stay up to date about
               <br /> our latest offers
             </h2>
 
-            {/* Compact Email input with Subscribe button */}
             <form
               onSubmit={(e) => e.preventDefault()}
               noValidate

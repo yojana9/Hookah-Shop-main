@@ -110,7 +110,15 @@ const ProductCard = memo(function ProductCard({
                 const r = rating || 0;
                 const full = i < Math.floor(r);
                 const half = !full && i === Math.floor(r) && r % 1 >= 0.5;
-                return <span key={i} className="text-sm">{full ? "★" : half ? "★" : "☆"}</span>;
+                return (
+                  <span
+                    key={i}
+                    className={`text-sm ${full || half ? "text-yellow-400" : "text-gray-300"}`}
+                  >
+                    ★
+                  </span>
+                );
+                
               })}
             </div>
             <span className="text-black/60 text-sm">{rating ? rating.toFixed(1) : "—"}/5</span>
@@ -125,7 +133,7 @@ const ProductCard = memo(function ProductCard({
   );
 });
 
-/* --------------- Gallery with page snap (no peeking) --------------- */
+
 function ProductCardGallery() {
   const products = useMemo(() => initialProducts, []);
   const [wishlist, setWishlist] = useState(new Set());

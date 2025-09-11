@@ -57,9 +57,9 @@ export default function Navbar() {
       )}
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
-        {/* Desktop / tablet */}
+   
         <div className="h-20 hidden md:grid grid-cols-3 items-center">
-          {/* left links (mapped) */}
+          
           <nav className="flex items-center gap-2" role="navigation" aria-label="Primary">
             {NAV_ITEMS.map(({ label, to }) => (
               <NavItem key={to} to={to}>
@@ -68,12 +68,12 @@ export default function Navbar() {
             ))}
           </nav>
 
-          {/* centered BIG logo — no hover/active animation */}
+        
           <div className="flex items-center justify-center">
             <Logo href="/" imgSrc="/logo.png" size="xl" alt="EPIC" />
           </div>
 
-          {/* right controls */}
+       
           <div className="flex items-center justify-end gap-2">
             <Link
               to="/search"
@@ -97,7 +97,6 @@ export default function Navbar() {
           </div>
         </div>
 
-        {/* Mobile bar */}
         <div className="h-16 flex md:hidden items-center justify-between gap-3">
           <button
             aria-label="Open menu"
@@ -107,7 +106,7 @@ export default function Navbar() {
             <FiMenu className="h-5 w-5" />
           </button>
 
-          {/* mobile logo — no hover/active animation */}
+          
           <Logo href="/" imgSrc="/logo.png" size={48} alt="EPIC" />
 
           <Link aria-label="Cart" to="/cart" className="p-2 rounded-lg hover:bg-neutral-100 transition">
@@ -115,7 +114,7 @@ export default function Navbar() {
           </Link>
         </div>
 
-        {/* mobile search */}
+    
         <div className="md:hidden pb-3">
           <Link
             to="/search"
@@ -131,7 +130,7 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Mobile drawer */}
+      
       {open && (
         <div className="fixed inset-0 z-[60]">
           <div className="absolute inset-0 bg-black/40" onClick={() => setOpen(false)} aria-hidden />
