@@ -43,7 +43,7 @@ export default function Navbar() {
   const [showPromo, setShowPromo] = useState(true);
 
   return (
-    <header className="sticky top-0 z-50 bg-white/90 backdrop-blur border-b border-neutral-200 shadow-sm">
+    <header className="sticky top-0 z-50 bg-white/90 backdrop-blur border-b border-neutral-200 shadow-sm pb-4">
       {showWarn && (
         <Bar bg="bg-white" onClose={() => setShowWarn(false)}>
           <strong>WARNING:</strong>&nbsp;This product contains NICOTINE.
@@ -57,9 +57,8 @@ export default function Navbar() {
       )}
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
-   
         <div className="h-20 hidden md:grid grid-cols-3 items-center">
-          
+          {/* Left nav */}
           <nav className="flex items-center gap-2" role="navigation" aria-label="Primary">
             {NAV_ITEMS.map(({ label, to }) => (
               <NavItem key={to} to={to}>
@@ -68,12 +67,12 @@ export default function Navbar() {
             ))}
           </nav>
 
-        
+          {/* Center logo */}
           <div className="flex items-center justify-center">
-            <Logo href="/" imgSrc="/logo.png" size="xl" alt="EPIC" />
+          <Logo href="/" imgSrc="/logo.png" size="xl" alt="EPIC" className="h-12 w-auto relative top-1" />
           </div>
 
-       
+          {/* Right actions */}
           <div className="flex items-center justify-end gap-2">
             <Link
               to="/search"
@@ -97,6 +96,7 @@ export default function Navbar() {
           </div>
         </div>
 
+        {/* Mobile navbar */}
         <div className="h-16 flex md:hidden items-center justify-between gap-3">
           <button
             aria-label="Open menu"
@@ -106,15 +106,14 @@ export default function Navbar() {
             <FiMenu className="h-5 w-5" />
           </button>
 
-          
-          <Logo href="/" imgSrc="/logo.png" size={48} alt="EPIC" />
+          <Logo href="/" imgSrc="/logo.png" size={30} alt="EPIC" />
 
           <Link aria-label="Cart" to="/cart" className="p-2 rounded-lg hover:bg-neutral-100 transition">
             <FiShoppingCart className="h-5 w-5" />
           </Link>
         </div>
 
-    
+        {/* Mobile search */}
         <div className="md:hidden pb-3">
           <Link
             to="/search"
@@ -130,7 +129,7 @@ export default function Navbar() {
         </div>
       </div>
 
-      
+      {/* Mobile menu */}
       {open && (
         <div className="fixed inset-0 z-[60]">
           <div className="absolute inset-0 bg-black/40" onClick={() => setOpen(false)} aria-hidden />
